@@ -65,7 +65,7 @@ const Header = () => {
         </h5>
         <h2 className="banner-heading3">Department of Computer Science and Engineering(AI & ML, Data Science)
         </h2>
-        <img src="/images/banner.png" alt="Banner" />
+        <img src={process.env.PUBLIC_URL + "/images/banner.png"} alt="Banner" />
       </div>
       <header className={isFixed ? "fixed-header" : ""}>
         <nav className="flexSB">
