@@ -14,7 +14,7 @@ import axios from "axios";
 const TeamCard = () => {
   const [teachData, setTeach] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/teach").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/teach").then((result) => {
       setTeach(result.data);
     });
   }, []);

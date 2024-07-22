@@ -13,7 +13,9 @@ const CarouselManager = () => {
 
   const fetchCarousel = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/cimages");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/cimages"
+      );
       setCarousel(response.data);
     } catch (error) {
       console.error("Error fetching carousel", error);
@@ -38,7 +40,7 @@ const CarouselManager = () => {
 
       if (editMode) {
         await axios.put(
-          `http://localhost:3001/editcarousel/${currentCarouselId}`,
+          `https://clg-backend-pearl.vercel.app/editcarousel/${currentCarouselId}`,
           formData,
           {
             headers: {
@@ -47,11 +49,15 @@ const CarouselManager = () => {
           }
         );
       } else {
-        await axios.post("http://localhost:3001/addcarousel", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/addcarousel",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       }
       setNewCarousel({ src: null });
       setEditMode(false);
@@ -67,7 +73,9 @@ const CarouselManager = () => {
 
   const removeCarousel = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deletecarousel/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/deletecarousel/${id}`
+      );
       fetchCarousel();
     } catch (error) {
       console.error("Error removing carousel", error);

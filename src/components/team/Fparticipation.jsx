@@ -6,21 +6,23 @@ import axios from "axios";
 export default function Fparticipation() {
   const [partpdfData, setPartpdf] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/partpdf").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/partpdf").then((result) => {
       setPartpdf(result.data);
     });
   }, []);
 
   const [partdataData, setPartdata] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/partdata").then((result) => {
-      setPartdata(result.data);
-    });
+    axios
+      .get("https://clg-backend-pearl.vercel.app/partdata")
+      .then((result) => {
+        setPartdata(result.data);
+      });
   }, []);
 
   const [partcolData, setPartcol] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/partcol").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/partcol").then((result) => {
       setPartcol(result.data);
     });
   }, []);
@@ -45,17 +47,19 @@ export default function Fparticipation() {
             <thead>
               <tr>
                 {partcolData.length > 0 &&
-                  Object.values(partcolData[0]).slice(1).map((header, index) => (
-                    <th key={index}>{header}</th>
-                  ))}
+                  Object.values(partcolData[0])
+                    .slice(1)
+                    .map((header, index) => <th key={index}>{header}</th>)}
               </tr>
             </thead>
             <tbody>
               {partdataData.map((row, rowIndex) => (
                 <tr key={rowIndex}>
-                  {Object.values(row).slice(1).map((cell, cellIndex) => (
-                    <td key={cellIndex}>{cell}</td>
-                  ))}
+                  {Object.values(row)
+                    .slice(1)
+                    .map((cell, cellIndex) => (
+                      <td key={cellIndex}>{cell}</td>
+                    ))}
                 </tr>
               ))}
             </tbody>

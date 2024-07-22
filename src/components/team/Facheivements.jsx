@@ -6,21 +6,23 @@ import axios from "axios";
 export default function Facheivements() {
   const [acchpdfData, setAcchpdf] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/acchpdf").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/acchpdf").then((result) => {
       setAcchpdf(result.data);
     });
   }, []);
 
   const [acchdataData, setAcchdata] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/acchdata").then((result) => {
-      setAcchdata(result.data);
-    });
+    axios
+      .get("https://clg-backend-pearl.vercel.app/acchdata")
+      .then((result) => {
+        setAcchdata(result.data);
+      });
   }, []);
 
   const [acchcolData, setAcchcol] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/acchcol").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/acchcol").then((result) => {
       setAcchcol(result.data);
     });
   }, []);
@@ -45,17 +47,19 @@ export default function Facheivements() {
             <thead>
               <tr>
                 {acchcolData.length > 0 &&
-                  Object.values(acchcolData[0]).slice(1).map((column, index) => (
-                    <th key={index}>{column}</th>
-                  ))}
+                  Object.values(acchcolData[0])
+                    .slice(1)
+                    .map((column, index) => <th key={index}>{column}</th>)}
               </tr>
             </thead>
             <tbody>
               {acchdataData.map((row, rowIndex) => (
                 <tr key={rowIndex}>
-                  {Object.values(row).slice(1).map((cell, cellIndex) => (
-                    <td key={cellIndex}>{cell}</td>
-                  ))}
+                  {Object.values(row)
+                    .slice(1)
+                    .map((cell, cellIndex) => (
+                      <td key={cellIndex}>{cell}</td>
+                    ))}
                 </tr>
               ))}
             </tbody>

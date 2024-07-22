@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-
 const PriceCard = () => {
   const [resultData, setResult] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/results").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/results").then((result) => {
       setResult(result.data);
     });
   }, []);
 
-
   const [timetableData, setTimetables] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/timetables").then((result) => {
-      setTimetables(result.data);
-    });
+    axios
+      .get("https://clg-backend-pearl.vercel.app/timetables")
+      .then((result) => {
+        setTimetables(result.data);
+      });
   }, []);
 
   const [callenderData, setCallender] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/callender").then((result) => {
-      setCallender(result.data);
-    });
+    axios
+      .get("https://clg-backend-pearl.vercel.app/callender")
+      .then((result) => {
+        setCallender(result.data);
+      });
   }, []);
-
 
   return (
     <>
@@ -87,7 +88,9 @@ const PriceCard = () => {
       <br />
       <div className="bulletin-board">
         <div>
-          <center><h2>Academic Calendar Details</h2></center>
+          <center>
+            <h2>Academic Calendar Details</h2>
+          </center>
           <table className="academic-calendar-table">
             {" "}
             {/* Add a class name for styling */}

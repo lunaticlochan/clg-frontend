@@ -16,7 +16,9 @@ const ParticipationManager = () => {
 
   const fetchColumns = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/partcol");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/partcol"
+      );
       setColumns(response.data[0]); // Assuming only one columns document
     } catch (error) {
       console.error("Error fetching columns", error);
@@ -25,7 +27,9 @@ const ParticipationManager = () => {
 
   const fetchTableData = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/partdata");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/partdata"
+      );
       setTableData(response.data);
     } catch (error) {
       console.error("Error fetching table data", error);
@@ -34,7 +38,9 @@ const ParticipationManager = () => {
 
   const fetchPdfs = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/partpdf");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/partpdf"
+      );
       setPdfs(response.data);
     } catch (error) {
       console.error("Error fetching PDFs", error);
@@ -64,9 +70,15 @@ const ParticipationManager = () => {
   const addOrUpdateRow = async () => {
     try {
       if (editMode) {
-        await axios.put(`http://localhost:3001/partedittabledata/${currentRowId}`, newRow);
+        await axios.put(
+          `https://clg-backend-pearl.vercel.app/partedittabledata/${currentRowId}`,
+          newRow
+        );
       } else {
-        await axios.post("http://localhost:3001/partaddtabledata", newRow);
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/partaddtabledata",
+          newRow
+        );
       }
       setNewRow({});
       setEditMode(false);
@@ -86,17 +98,25 @@ const ParticipationManager = () => {
       }
 
       if (editMode) {
-        await axios.put(`http://localhost:3001/parteditpdf/${currentPdfId}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.put(
+          `https://clg-backend-pearl.vercel.app/parteditpdf/${currentPdfId}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       } else {
-        await axios.post("http://localhost:3001/partaddpdf", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/partaddpdf",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       }
       setNewPdf({ name: "", link: null });
       setEditMode(false);
@@ -112,8 +132,14 @@ const ParticipationManager = () => {
 
   const addColumn = async () => {
     try {
-      const updatedColumns = { ...columns, [`c${Object.keys(columns).length}`]: newColumn };
-      await axios.put(`http://localhost:3001/parteditcolumns/${columns._id}`, updatedColumns);
+      const updatedColumns = {
+        ...columns,
+        [`c${Object.keys(columns).length}`]: newColumn,
+      };
+      await axios.put(
+        `https://clg-backend-pearl.vercel.app/parteditcolumns/${columns._id}`,
+        updatedColumns
+      );
       setNewColumn("");
       fetchColumns();
     } catch (error) {
@@ -123,7 +149,9 @@ const ParticipationManager = () => {
 
   const removeRow = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/partdeletetabledata/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/partdeletetabledata/${id}`
+      );
       fetchTableData();
     } catch (error) {
       console.error("Error removing row", error);
@@ -132,7 +160,9 @@ const ParticipationManager = () => {
 
   const removePdf = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/partdeletepdf/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/partdeletepdf/${id}`
+      );
       fetchPdfs();
     } catch (error) {
       console.error("Error removing PDF", error);
@@ -166,18 +196,19 @@ const ParticipationManager = () => {
       </div>
       <div className="form-container">
         <h1>Participation Table Data</h1>
-        {Object.keys(columns).map((col, index) => (
-          col !== '_id' && (
-            <input
-              key={index}
-              type="text"
-              name={col}
-              placeholder={columns[col]}
-              value={newRow[col] || ""}
-              onChange={(e) => handleChange(e)}
-            />
-          )
-        ))}
+        {Object.keys(columns).map(
+          (col, index) =>
+            col !== "_id" && (
+              <input
+                key={index}
+                type="text"
+                name={col}
+                placeholder={columns[col]}
+                value={newRow[col] || ""}
+                onChange={(e) => handleChange(e)}
+              />
+            )
+        )}
         <button onClick={addOrUpdateRow}>
           {editMode ? "Update Row" : "Add Row"}
         </button>
@@ -186,18 +217,20 @@ const ParticipationManager = () => {
         <table>
           <thead>
             <tr>
-              {Object.keys(columns).map((col, index) => (
-                col !== '_id' && <th key={index}>{columns[col]}</th>
-              ))}
+              {Object.keys(columns).map(
+                (col, index) =>
+                  col !== "_id" && <th key={index}>{columns[col]}</th>
+              )}
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {tableData.map((row) => (
               <tr key={row._id}>
-                {Object.keys(columns).map((col, index) => (
-                  col !== '_id' && <td key={index}>{row[col]}</td>
-                ))}
+                {Object.keys(columns).map(
+                  (col, index) =>
+                    col !== "_id" && <td key={index}>{row[col]}</td>
+                )}
                 <td>
                   <button onClick={() => editRow(row)}>Edit</button>
                   <button onClick={() => removeRow(row._id)}>Remove</button>

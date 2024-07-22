@@ -15,7 +15,9 @@ const Results = () => {
 
   const fetchResults = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/results");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/results"
+      );
       setResults(response.data);
       console.log("Fetched results:", response.data);
     } catch (error) {
@@ -45,7 +47,7 @@ const Results = () => {
 
       if (editMode) {
         await axios.put(
-          `http://localhost:3001/editresult/${currentResultId}`,
+          `https://clg-backend-pearl.vercel.app/editresult/${currentResultId}`,
           formData,
           {
             headers: {
@@ -54,11 +56,15 @@ const Results = () => {
           }
         );
       } else {
-        await axios.post("http://localhost:3001/addresult", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/addresult",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       }
       setNewResult({
         name: "",
@@ -77,7 +83,9 @@ const Results = () => {
 
   const removeResult = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deleteresult/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/deleteresult/${id}`
+      );
       fetchResults();
     } catch (error) {
       console.error("Error removing result", error);

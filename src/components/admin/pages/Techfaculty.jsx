@@ -16,7 +16,9 @@ const Techfaculty = () => {
 
   const fetchFaculty = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/tech");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/tech"
+      );
       setFaculty(response.data);
     } catch (error) {
       console.error("Error fetching faculty", error);
@@ -45,7 +47,7 @@ const Techfaculty = () => {
 
       if (editMode) {
         await axios.put(
-          `http://localhost:3001/edittech/${currentFacultyId}`,
+          `https://clg-backend-pearl.vercel.app/edittech/${currentFacultyId}`,
           formData,
           {
             headers: {
@@ -54,11 +56,15 @@ const Techfaculty = () => {
           }
         );
       } else {
-        await axios.post("http://localhost:3001/addtech", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/addtech",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       }
       setNewFaculty({
         cover: null,
@@ -79,7 +85,9 @@ const Techfaculty = () => {
 
   const removeFaculty = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deletetech/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/deletetech/${id}`
+      );
       fetchFaculty();
     } catch (error) {
       console.error("Error removing faculty", error);
@@ -139,7 +147,10 @@ const Techfaculty = () => {
       <ul className="faculty-list">
         {faculty.map((member) => (
           <li key={member._id} className="faculty-item">
-            <img src={`data:image/jpeg;base64,${member.cover}`} alt={member.name} />
+            <img
+              src={`data:image/jpeg;base64,${member.cover}`}
+              alt={member.name}
+            />
             <div className="faculty-details">
               <h3>{member.name}</h3>
               <p>{member.work}</p>
@@ -148,7 +159,9 @@ const Techfaculty = () => {
               </a>
               <div className="faculty-buttons">
                 <button onClick={() => editFaculty(member)}>Edit</button>
-                <button onClick={() => removeFaculty(member._id)}>Remove</button>
+                <button onClick={() => removeFaculty(member._id)}>
+                  Remove
+                </button>
               </div>
             </div>
           </li>

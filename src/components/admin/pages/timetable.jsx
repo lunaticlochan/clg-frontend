@@ -14,7 +14,9 @@ const Timetable = () => {
 
   const fetchTimetables = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/timetables");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/timetables"
+      );
       setTimetables(response.data);
       console.log("Fetched timetables:", response.data);
     } catch (error) {
@@ -45,7 +47,7 @@ const Timetable = () => {
 
       if (editMode) {
         await axios.put(
-          `http://localhost:3001/edittimetable/${currentTimetableId}`,
+          `https://clg-backend-pearl.vercel.app/edittimetable/${currentTimetableId}`,
           formData,
           {
             headers: {
@@ -54,11 +56,15 @@ const Timetable = () => {
           }
         );
       } else {
-        await axios.post("http://localhost:3001/addtimetable", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/addtimetable",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       }
       setNewTimetable({
         name: "",
@@ -77,7 +83,9 @@ const Timetable = () => {
 
   const removeTimetable = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deletetimetable/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/deletetimetable/${id}`
+      );
       fetchTimetables();
     } catch (error) {
       console.error("Error removing timetable", error);
@@ -132,7 +140,9 @@ const Timetable = () => {
               </a>
               <div className="timetable-buttons">
                 <button onClick={() => editTimetable(timetable)}>Edit</button>
-                <button onClick={() => removeTimetable(timetable._id)}>Remove</button>
+                <button onClick={() => removeTimetable(timetable._id)}>
+                  Remove
+                </button>
               </div>
             </div>
           </li>

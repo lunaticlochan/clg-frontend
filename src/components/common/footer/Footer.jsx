@@ -5,23 +5,27 @@ import axios from "axios";
 const Footer = () => {
   const [resultData, setResult] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/results").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/results").then((result) => {
       setResult(result.data);
     });
   }, []);
 
   const [quicklinks, setQuicklinks] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/quicklinks").then((result) => {
-      setQuicklinks(result.data);
-    });
+    axios
+      .get("https://clg-backend-pearl.vercel.app/quicklinks")
+      .then((result) => {
+        setQuicklinks(result.data);
+      });
   }, []);
 
   const [sociallinks, setSociallinks] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/sociallinks").then((result) => {
-      setSociallinks(result.data);
-    });
+    axios
+      .get("https://clg-backend-pearl.vercel.app/sociallinks")
+      .then((result) => {
+        setSociallinks(result.data);
+      });
   }, []);
   return (
     <>
@@ -29,7 +33,7 @@ const Footer = () => {
         <center>
           <br />
           <img
-            src={process.env.PUBLIC_URL + '/images/anits_logo.png'}
+            src={process.env.PUBLIC_URL + "/images/anits_logo.png"}
             style={{ width: "170px", height: "auto" }}
             alt="rgaersg"
           />
@@ -95,15 +99,14 @@ const Footer = () => {
             <ul>
               <li>
                 <i className="fa fa-map-marker-alt"></i>
-                  <iframe
-                    width="100%"
-                    height="300"
-                    frameborder="0"
-                    marginheight="0"
-                    marginwidth="0"
-                    src="https://maps.google.com/maps?width=300%25&amp;height=100&amp;hl=en&amp;q=Anil%20Neerukonda%20Institute%20of%20Techonology%20and%20Sciences%20(ANITS)%20Near%20Three%20Temples%20Bheemunipatnam,%20Sanghivalasa,%20Visakhapatnam,%20Andhra%20Pradesh%20531162&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                  >
-                  </iframe>
+                <iframe
+                  width="100%"
+                  height="300"
+                  frameborder="0"
+                  marginheight="0"
+                  marginwidth="0"
+                  src="https://maps.google.com/maps?width=300%25&amp;height=100&amp;hl=en&amp;q=Anil%20Neerukonda%20Institute%20of%20Techonology%20and%20Sciences%20(ANITS)%20Near%20Three%20Temples%20Bheemunipatnam,%20Sanghivalasa,%20Visakhapatnam,%20Andhra%20Pradesh%20531162&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                ></iframe>
               </li>
               <li>
                 <i className="fa fa-phone-alt"></i>

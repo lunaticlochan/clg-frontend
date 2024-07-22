@@ -15,9 +15,11 @@ const CoursesCard = () => {
   };
   const [syllabusData, setSyllabus] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/syllabus").then((result) => {
-      setSyllabus(result.data);
-    });
+    axios
+      .get("https://clg-backend-pearl.vercel.app/syllabus")
+      .then((result) => {
+        setSyllabus(result.data);
+      });
   }, []);
   return (
     <>
@@ -47,11 +49,10 @@ const CoursesCard = () => {
                                       onClick={() => {
                                         try {
                                           // Ensure syllabusItem.file is properly formatted
-                                          const base64String =
-                                            item.url.replace(
-                                              /^data:application\/pdf;base64,/,
-                                              ""
-                                            );
+                                          const base64String = item.url.replace(
+                                            /^data:application\/pdf;base64,/,
+                                            ""
+                                          );
 
                                           // Decode the base64 string
                                           const byteCharacters =

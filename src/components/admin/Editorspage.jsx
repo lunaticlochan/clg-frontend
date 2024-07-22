@@ -10,7 +10,9 @@ export default function UserDashboard() {
   useEffect(() => {
     // Fetch user data from the backend
     axios
-      .get(`http://localhost:3001/api/users/username/${username}`)
+      .get(
+        `https://clg-backend-pearl.vercel.app/api/users/username/${username}`
+      )
       .then((response) => {
         setUserData(response.data);
       })
@@ -118,7 +120,11 @@ export default function UserDashboard() {
         </nav>
       </div>
       <button className="sidebar-toggle" onClick={() => setClick(!click)}>
-        {click ? <i className="fa fa-times"></i> : <i className="fa fa-bars"></i>}
+        {click ? (
+          <i className="fa fa-times"></i>
+        ) : (
+          <i className="fa fa-bars"></i>
+        )}
       </button>
       <div className="content">
         <Outlet />

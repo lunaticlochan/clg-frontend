@@ -29,7 +29,9 @@ export default function UserManagement() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/users");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/users"
+      );
       setUsers(response.data);
     } catch (error) {
       console.error("There was an error fetching the users:", error);
@@ -50,7 +52,10 @@ export default function UserManagement() {
 
     if (editMode) {
       axios
-        .put(`http://localhost:3001/users/${currentUserId}`, userData)
+        .put(
+          `https://clg-backend-pearl.vercel.app/users/${currentUserId}`,
+          userData
+        )
         .then((response) => {
           console.log("User updated successfully:", response.data);
           fetchUsers();
@@ -61,7 +66,7 @@ export default function UserManagement() {
         });
     } else {
       axios
-        .post("http://localhost:3001/adduser", userData)
+        .post("https://clg-backend-pearl.vercel.app/adduser", userData)
         .then((response) => {
           console.log("User added successfully:", response.data);
           fetchUsers();
@@ -83,7 +88,7 @@ export default function UserManagement() {
 
   const handleDelete = (userId) => {
     axios
-      .delete(`http://localhost:3001/users/${userId}`)
+      .delete(`https://clg-backend-pearl.vercel.app/users/${userId}`)
       .then((response) => {
         console.log("User deleted successfully:", response.data);
         fetchUsers();
@@ -163,7 +168,10 @@ export default function UserManagement() {
             <li key={user._id}>
               {user.username}
               <div>
-                <button className="edit-button" onClick={() => handleEdit(user)}>
+                <button
+                  className="edit-button"
+                  onClick={() => handleEdit(user)}
+                >
                   Edit
                 </button>
                 <button onClick={() => handleDelete(user._id)}>Delete</button>

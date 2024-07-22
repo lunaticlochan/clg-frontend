@@ -9,7 +9,7 @@ const Hero = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/cimages")
+      .get("https://clg-backend-pearl.vercel.app/cimages")
       .then((result) => {
         setImages(result.data);
       })

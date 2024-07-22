@@ -18,7 +18,9 @@ const CalendarManager = () => {
 
   const fetchCalendar = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/callender");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/callender"
+      );
       setCalendar(response.data);
       console.log("Fetched calendar:", response.data);
     } catch (error) {
@@ -53,7 +55,7 @@ const CalendarManager = () => {
 
       if (editMode) {
         await axios.put(
-          `http://localhost:3001/editcalendar/${currentCalendarId}`,
+          `https://clg-backend-pearl.vercel.app/editcalendar/${currentCalendarId}`,
           formData,
           {
             headers: {
@@ -62,11 +64,15 @@ const CalendarManager = () => {
           }
         );
       } else {
-        await axios.post("http://localhost:3001/addcalendar", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/addcalendar",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       }
       setNewCalendar({
         sno: "",
@@ -89,7 +95,9 @@ const CalendarManager = () => {
 
   const removeCalendar = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deletecalendar/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/deletecalendar/${id}`
+      );
       fetchCalendar();
     } catch (error) {
       console.error("Error removing calendar", error);
@@ -194,7 +202,9 @@ const CalendarManager = () => {
                 </td>
                 <td>
                   <button onClick={() => editCalendar(item)}>Edit</button>
-                  <button onClick={() => removeCalendar(item._id)}>Remove</button>
+                  <button onClick={() => removeCalendar(item._id)}>
+                    Remove
+                  </button>
                 </td>
               </tr>
             ))}

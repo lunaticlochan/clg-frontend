@@ -16,10 +16,9 @@ import axios from "axios";
 // import PDFDownloadButton from "../allcourses/PDFDownloadButton";
 
 const HAbout = () => {
-
   const [eventData, setEvent] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/event").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/event").then((result) => {
       setEvent(result.data);
     });
   }, []);
@@ -73,9 +72,10 @@ const HAbout = () => {
                       <div className="date">
                         <strong>{val.day}</strong>
                         <p>{val.monthyear}</p>
-                        
                       </div>
-                      <a href={val.url}><button className="ebutton"> Register </button></a>
+                      <a href={val.url}>
+                        <button className="ebutton"> Register </button>
+                      </a>
                     </div>
                   </div>
                 </SwiperSlide>

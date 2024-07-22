@@ -18,7 +18,9 @@ const Event = () => {
   const fileInputRef = useRef(null);
 
   const fetchEvents = async () => {
-    const response = await axios.get("http://localhost:3001/event");
+    const response = await axios.get(
+      "https://clg-backend-pearl.vercel.app/event"
+    );
     setEvents(response.data);
   };
 
@@ -44,7 +46,7 @@ const Event = () => {
 
       if (editMode) {
         await axios.put(
-          `http://localhost:3001/editevent/${currentEventId}`,
+          `https://clg-backend-pearl.vercel.app/editevent/${currentEventId}`,
           formData,
           {
             headers: {
@@ -53,11 +55,15 @@ const Event = () => {
           }
         );
       } else {
-        await axios.post("http://localhost:3001/addevent", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/addevent",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       }
       setNewEvent({
         img: null,
@@ -80,7 +86,7 @@ const Event = () => {
   };
 
   const removeEvent = async (id) => {
-    await axios.delete(`http://localhost:3001/delevent/${id}`);
+    await axios.delete(`https://clg-backend-pearl.vercel.app/delevent/${id}`);
     fetchEvents();
   };
 
@@ -161,7 +167,10 @@ const Event = () => {
       <ul className="event-list">
         {events.map((event) => (
           <li key={event._id} className="event-item">
-            <img src={`data:image/jpeg;base64,${event.img}`} alt={event.title} />
+            <img
+              src={`data:image/jpeg;base64,${event.img}`}
+              alt={event.title}
+            />
             <div className="event-details">
               <h3>{event.title}</h3>
               <p>{event.description}</p>

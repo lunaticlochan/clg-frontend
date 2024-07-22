@@ -16,7 +16,9 @@ const PublicationManager = () => {
 
   const fetchColumns = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/pubcol");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/pubcol"
+      );
       setColumns(response.data[0]); // Assuming only one columns document
     } catch (error) {
       console.error("Error fetching columns", error);
@@ -25,7 +27,9 @@ const PublicationManager = () => {
 
   const fetchTableData = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/pubdata");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/pubdata"
+      );
       setTableData(response.data);
     } catch (error) {
       console.error("Error fetching table data", error);
@@ -34,7 +38,9 @@ const PublicationManager = () => {
 
   const fetchPdfs = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/pubpdf");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/pubpdf"
+      );
       setPdfs(response.data);
     } catch (error) {
       console.error("Error fetching PDFs", error);
@@ -64,9 +70,15 @@ const PublicationManager = () => {
   const addOrUpdateRow = async () => {
     try {
       if (editMode) {
-        await axios.put(`http://localhost:3001/edittabledata/${currentRowId}`, newRow);
+        await axios.put(
+          `https://clg-backend-pearl.vercel.app/edittabledata/${currentRowId}`,
+          newRow
+        );
       } else {
-        await axios.post("http://localhost:3001/addtabledata", newRow);
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/addtabledata",
+          newRow
+        );
       }
       setNewRow({});
       setEditMode(false);
@@ -86,17 +98,25 @@ const PublicationManager = () => {
       }
 
       if (editMode) {
-        await axios.put(`http://localhost:3001/editpdf/${currentPdfId}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.put(
+          `https://clg-backend-pearl.vercel.app/editpdf/${currentPdfId}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       } else {
-        await axios.post("http://localhost:3001/addpdf", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/addpdf",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
       }
       setNewPdf({ name: "", link: null });
       setEditMode(false);
@@ -112,8 +132,14 @@ const PublicationManager = () => {
 
   const addColumn = async () => {
     try {
-      const updatedColumns = { ...columns, [`c${Object.keys(columns).length}`]: newColumn };
-      await axios.put(`http://localhost:3001/editcolumns/${columns._id}`, updatedColumns);
+      const updatedColumns = {
+        ...columns,
+        [`c${Object.keys(columns).length}`]: newColumn,
+      };
+      await axios.put(
+        `https://clg-backend-pearl.vercel.app/editcolumns/${columns._id}`,
+        updatedColumns
+      );
       setNewColumn("");
       fetchColumns();
     } catch (error) {
@@ -123,7 +149,9 @@ const PublicationManager = () => {
 
   const removeRow = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deletetabledata/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/deletetabledata/${id}`
+      );
       fetchTableData();
     } catch (error) {
       console.error("Error removing row", error);
@@ -132,7 +160,9 @@ const PublicationManager = () => {
 
   const removePdf = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deletepdf/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/deletepdf/${id}`
+      );
       fetchPdfs();
     } catch (error) {
       console.error("Error removing PDF", error);
@@ -166,18 +196,19 @@ const PublicationManager = () => {
       </div>
       <div className="form-container">
         <h1>Publication Table Data</h1>
-        {Object.keys(columns).map((col, index) => (
-          col !== '_id' && (
-            <input
-              key={index}
-              type="text"
-              name={col}
-              placeholder={columns[col]}
-              value={newRow[col] || ""}
-              onChange={(e) => handleChange(e)}
-            />
-          )
-        ))}
+        {Object.keys(columns).map(
+          (col, index) =>
+            col !== "_id" && (
+              <input
+                key={index}
+                type="text"
+                name={col}
+                placeholder={columns[col]}
+                value={newRow[col] || ""}
+                onChange={(e) => handleChange(e)}
+              />
+            )
+        )}
         <button onClick={addOrUpdateRow}>
           {editMode ? "Update Row" : "Add Row"}
         </button>
@@ -186,18 +217,20 @@ const PublicationManager = () => {
         <table>
           <thead>
             <tr>
-              {Object.keys(columns).map((col, index) => (
-                col !== '_id' && <th key={index}>{columns[col]}</th>
-              ))}
+              {Object.keys(columns).map(
+                (col, index) =>
+                  col !== "_id" && <th key={index}>{columns[col]}</th>
+              )}
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {tableData.map((row) => (
               <tr key={row._id}>
-                {Object.keys(columns).map((col, index) => (
-                  col !== '_id' && <td key={index}>{row[col]}</td>
-                ))}
+                {Object.keys(columns).map(
+                  (col, index) =>
+                    col !== "_id" && <td key={index}>{row[col]}</td>
+                )}
                 <td>
                   <button onClick={() => editRow(row)}>Edit</button>
                   <button onClick={() => removeRow(row._id)}>Remove</button>

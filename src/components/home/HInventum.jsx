@@ -6,7 +6,7 @@ import axios from "axios";
 const HInventum = () => {
   const [festData, setFest] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/fest").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/fest").then((result) => {
       setFest(result.data);
     });
   }, []);

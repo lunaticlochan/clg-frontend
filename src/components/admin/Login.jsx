@@ -23,10 +23,13 @@ const Login = () => {
         localStorage.setItem("username", username);
         navigate("/admin");
       } else {
-        const response = await axios.post("http://localhost:3001/login", {
-          username,
-          password,
-        });
+        const response = await axios.post(
+          "https://clg-backend-pearl.vercel.app/login",
+          {
+            username,
+            password,
+          }
+        );
         if (response.data.success) {
           localStorage.setItem("username", username);
           navigate("/edits");

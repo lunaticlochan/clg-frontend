@@ -10,7 +10,7 @@ const Popup = () => {
     const fetchData = async () => {
       try {
         const [placementsRes] = await Promise.all([
-          axios.get("http://localhost:3001/placements"),
+          axios.get("https://clg-backend-pearl.vercel.app/placements"),
         ]);
 
         setPlacements(placementsRes.data);
@@ -34,25 +34,25 @@ const Popup = () => {
 
   return (
     show && (
-        <div className="toast">
-          <div className="toast-header">
-            <h4>Placements Updates</h4>
-            <button className="close-btn" onClick={() => setShow(false)}>
-              ×
-            </button>
-          </div>
-
-          <div className="placement-data">
-            <ul>
-              {sortedPlacements.map((placement, index) => (
-                <li key={index}>
-                  {placement.company}: {placement.package} LPA (Packages:{" "}
-                  {placement.count})
-                </li>
-              ))}
-            </ul>
-          </div>
+      <div className="toast">
+        <div className="toast-header">
+          <h4>Placements Updates</h4>
+          <button className="close-btn" onClick={() => setShow(false)}>
+            ×
+          </button>
         </div>
+
+        <div className="placement-data">
+          <ul>
+            {sortedPlacements.map((placement, index) => (
+              <li key={index}>
+                {placement.company}: {placement.package} LPA (Packages:{" "}
+                {placement.count})
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     )
   );
 };

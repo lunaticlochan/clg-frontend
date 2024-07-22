@@ -20,7 +20,9 @@ const Syllabus = () => {
 
   const fetchSyllabus = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/syllabus");
+      const response = await axios.get(
+        "https://clg-backend-pearl.vercel.app/syllabus"
+      );
       setSyllabus(response.data);
     } catch (error) {
       console.error("Error fetching syllabus", error);
@@ -70,12 +72,16 @@ const Syllabus = () => {
 
       if (editMode) {
         await axios.put(
-          `http://localhost:3001/editsyllabus/${currentSyllabusId}`,
+          `https://clg-backend-pearl.vercel.app/editsyllabus/${currentSyllabusId}`,
           formData,
           config
         );
       } else {
-        await axios.post("http://localhost:3001/addsyllabus", formData, config);
+        await axios.post(
+          "https://clg-backend-pearl.vercel.app/addsyllabus",
+          formData,
+          config
+        );
       }
 
       // Reset form fields after submission
@@ -99,7 +105,9 @@ const Syllabus = () => {
 
   const removeSyllabus = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deletesyllabus/${id}`);
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/deletesyllabus/${id}`
+      );
       fetchSyllabus();
     } catch (error) {
       console.error("Error removing syllabus", error);

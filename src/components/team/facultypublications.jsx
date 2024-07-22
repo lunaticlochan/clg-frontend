@@ -6,21 +6,21 @@ import axios from "axios";
 export default function FacultyPublications() {
   const [pubpdfData, setPubpdf] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/pubpdf").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/pubpdf").then((result) => {
       setPubpdf(result.data);
     });
   }, []);
 
   const [pubdataData, setPubdata] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/pubdata").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/pubdata").then((result) => {
       setPubdata(result.data);
     });
   }, []);
 
   const [pubcolData, setPubcol] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/pubcol").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/pubcol").then((result) => {
       setPubcol(result.data);
     });
   }, []);
@@ -29,7 +29,9 @@ export default function FacultyPublications() {
     <div>
       <center>
         <div className="publication-summary-table-container">
-          <br /><h2>Publications</h2><br />
+          <br />
+          <h2>Publications</h2>
+          <br />
           {pubpdfData.map((item, index) => (
             <div key={index}>
               <PDFDownloadButton pdfUrl={item.link} cname={item.name} />
@@ -42,17 +44,19 @@ export default function FacultyPublications() {
             <thead>
               <tr>
                 {pubcolData.length > 0 &&
-                  Object.values(pubcolData[0]).slice(1).map((column, index) => (
-                    <th key={index}>{column}</th>
-                  ))}
+                  Object.values(pubcolData[0])
+                    .slice(1)
+                    .map((column, index) => <th key={index}>{column}</th>)}
               </tr>
             </thead>
             <tbody>
               {pubdataData.map((row, rowIndex) => (
                 <tr key={rowIndex}>
-                  {Object.values(row).slice(1).map((cell, cellIndex) => (
-                    <td key={cellIndex}>{cell}</td>
-                  ))}
+                  {Object.values(row)
+                    .slice(1)
+                    .map((cell, cellIndex) => (
+                      <td key={cellIndex}>{cell}</td>
+                    ))}
                 </tr>
               ))}
             </tbody>

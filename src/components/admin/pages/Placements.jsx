@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './placements.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./placements.css";
 
 const Placements = () => {
   const [placements, setPlacements] = useState([]);
-  const [newPlacement, setNewPlacement] = useState({ company: '', package: 0, count: 0 });
+  const [newPlacement, setNewPlacement] = useState({
+    company: "",
+    package: 0,
+    count: 0,
+  });
   const [editPlacement, setEditPlacement] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const placementsRes = await axios.get('http://localhost:3001/placements');
+        const placementsRes = await axios.get(
+          "https://clg-backend-pearl.vercel.app/placements"
+        );
         setPlacements(placementsRes.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -22,30 +28,40 @@ const Placements = () => {
 
   const handleAddPlacement = async () => {
     try {
-      const res = await axios.post('http://localhost:3001/api/placements', newPlacement);
+      const res = await axios.post(
+        "https://clg-backend-pearl.vercel.app/api/placements",
+        newPlacement
+      );
       setPlacements([...placements, res.data]);
-      setNewPlacement({ company: '', package: 0, count: 0 });
+      setNewPlacement({ company: "", package: 0, count: 0 });
     } catch (error) {
-      console.error('Error adding placement:', error);
+      console.error("Error adding placement:", error);
     }
   };
 
   const handleUpdatePlacement = async () => {
     try {
-      const res = await axios.put(`http://localhost:3001/api/placements/${editPlacement._id}`, editPlacement);
-      setPlacements(placements.map(p => (p._id === editPlacement._id ? res.data : p)));
+      const res = await axios.put(
+        `https://clg-backend-pearl.vercel.app/api/placements/${editPlacement._id}`,
+        editPlacement
+      );
+      setPlacements(
+        placements.map((p) => (p._id === editPlacement._id ? res.data : p))
+      );
       setEditPlacement(null);
     } catch (error) {
-      console.error('Error updating placement:', error);
+      console.error("Error updating placement:", error);
     }
   };
 
   const handleDeletePlacement = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/placements/${id}`);
-      setPlacements(placements.filter(p => p._id !== id));
+      await axios.delete(
+        `https://clg-backend-pearl.vercel.app/api/placements/${id}`
+      );
+      setPlacements(placements.filter((p) => p._id !== id));
     } catch (error) {
-      console.error('Error deleting placement:', error);
+      console.error("Error deleting placement:", error);
     }
   };
 
@@ -68,19 +84,31 @@ const Placements = () => {
           type="text"
           placeholder="Company"
           value={newPlacement.company}
-          onChange={(e) => setNewPlacement({ ...newPlacement, company: e.target.value })}
+          onChange={(e) =>
+            setNewPlacement({ ...newPlacement, company: e.target.value })
+          }
         />
         <input
           type="number"
           placeholder="Package"
           value={newPlacement.package}
-          onChange={(e) => setNewPlacement({ ...newPlacement, package: parseFloat(e.target.value) })}
+          onChange={(e) =>
+            setNewPlacement({
+              ...newPlacement,
+              package: parseFloat(e.target.value),
+            })
+          }
         />
         <input
           type="number"
           placeholder="Count"
           value={newPlacement.count}
-          onChange={(e) => setNewPlacement({ ...newPlacement, count: parseInt(e.target.value, 10) })}
+          onChange={(e) =>
+            setNewPlacement({
+              ...newPlacement,
+              count: parseInt(e.target.value, 10),
+            })
+          }
         />
         <button onClick={handleAddPlacement}>Add Placement</button>
       </div>
@@ -131,8 +159,12 @@ const Placements = () => {
                 <td>{placement.package} LPA</td>
                 <td>{placement.count}</td>
                 <td>
-                  <button onClick={() => handleEditClick(placement)}>Edit</button>
-                  <button onClick={() => handleDeletePlacement(placement._id)}>Delete</button>
+                  <button onClick={() => handleEditClick(placement)}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDeletePlacement(placement._id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

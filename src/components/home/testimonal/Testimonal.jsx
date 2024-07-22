@@ -12,10 +12,9 @@ import { Pagination } from "swiper/modules";
 import axios from "axios";
 
 const Testimonal = () => {
-
   const [alumniData, setAlumni] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/alumni").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/alumni").then((result) => {
       setAlumni(result.data);
     });
   }, []);

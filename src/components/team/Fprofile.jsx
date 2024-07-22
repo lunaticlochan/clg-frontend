@@ -13,7 +13,7 @@ import axios from "axios";
 export default function Fprofile() {
   const [techData, setTech] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/tech").then((result) => {
+    axios.get("https://clg-backend-pearl.vercel.app/tech").then((result) => {
       setTech(result.data);
     });
   }, []);
